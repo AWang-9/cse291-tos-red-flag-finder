@@ -4,10 +4,14 @@
   "description": "Base Level Extension",
   "version": "1.0",
   "action": {
-    "default_popup": "popup/popup.html",
-    "default_icon": "hello.png"
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
   },
   "permissions": [
-    "tabs"
-  ]
+    "tabs",
+    "storage"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
 }
