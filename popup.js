@@ -27,25 +27,25 @@ document.addEventListener("DOMContentLoaded", () => {
       // page_data.appendChild(summaryElement);
 
       const summary = await analyzeTOS(currentUrl);
+      // var summary = "Test no numbers";
       const summaryElement = document.createElement("p");
       summaryElement.id = "summary"; // Assign an ID to the summary element
-      // const summary = "1) Point1 2) Point2 3)Point3";
       const regexStr = summary.match(/(?!x)[0-9]+/gi);
-      if (regexStr == null) {
-        // could not parse out any numbers.
-        summaryElement.textcontet = summary;
+      if (!regexStr) { 
+        // If no numbers to parse out, just return the given paragraph.
+        summaryElement.textContent = summary;
         page_data.appendChild(summaryElement);
         return;
       }
 
       // otherwise we have some numbers to parse
       // hardcode time lol
+      // We do this a total of 5 times, for each bullet point
       var index1 = summary.indexOf(regexStr[0])
       var index2 = summary.indexOf(regexStr[1])
       summaryElement.textContent = summary.substring(index1, index2);
       page_data.appendChild(summaryElement);
 
-      // now do this five times
       const summaryElement2 = document.createElement("p");
       summaryElement2.id = "summary2"; // Assign an ID to the summary element
       var index1 = summary.indexOf(regexStr[1])
@@ -76,8 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   
     async function chatGPTRequest(prompt) {
-      // const apiKey = "API-KEY"; // Replace with your actual OpenAI API key
-      const apiKey = "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";
+      const apiKey = "API-KEY"; // Replace with your actual OpenAI API key
   
       const response = await fetch(
         // "https://api.openai.com/v1/engines/davinci-codex/completions",
